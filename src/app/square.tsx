@@ -1,3 +1,7 @@
+"use client";
+
+import { useState } from "react";
+
 interface ButtonProps {
   type?: "button" | "submit" | "reset";
   children: React.ReactNode;
@@ -12,10 +16,16 @@ const Button = ({ type = "button", children, onClick }: ButtonProps) => {
   );
 };
 
-type Props = {
-  value: number; // enforce number at runtime
-};
+export function Square() {
+  const [value, setValue] = useState<string | null>(null);
 
-export function Square({ value }: Readonly<Props>) {
-  return <Button>{value}</Button>;
+  function handleClick() {
+    setValue("X");
+  }
+
+  return (
+    <Button type="button" onClick={handleClick}>
+      {value}
+    </Button>
+  );
 }
