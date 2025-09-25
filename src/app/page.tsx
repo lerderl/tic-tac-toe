@@ -1,5 +1,25 @@
-import { Button } from "./layout";
+"use client";
+
+import { Square } from "./square";
 
 export default function Home() {
-  return <Button>X</Button>;
+  return (
+    <>
+      <div className="board-row">
+        <Square />
+        <Square />
+        <Square />
+      </div>
+      <div className="board-row">
+        <Square />
+        <Square />
+        <Square />
+      </div>
+      <div className="board-row">
+        <Square />
+        <Square />
+        <Square />
+      </div>
+    </>
+  );
 }
