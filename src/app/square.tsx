@@ -1,30 +1,17 @@
 "use client";
 
-import { useState } from "react";
+import { Button } from "@/components/Button";
 
-interface ButtonProps {
-  type?: "button" | "submit" | "reset";
-  children: React.ReactNode;
-  onClick?: () => void;
+type SquareValue = "X" | "O" | null;
+
+interface SquareProps {
+  value: SquareValue;
+  onSquareClick: React.MouseEventHandler<HTMLButtonElement>;
 }
 
-const Button = ({ type = "button", children, onClick }: ButtonProps) => {
+export function Square({ value, onSquareClick }: Readonly<SquareProps>) {
   return (
-    <button type={type} onClick={onClick} className="square">
-      {children}
-    </button>
-  );
-};
-
-export function Square() {
-  const [value, setValue] = useState<string | null>(null);
-
-  function handleClick() {
-    setValue("X");
-  }
-
-  return (
-    <Button type="button" onClick={handleClick}>
+    <Button type="button" onClick={onSquareClick}>
       {value}
     </Button>
   );
