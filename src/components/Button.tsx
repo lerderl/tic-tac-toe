@@ -1,7 +1,9 @@
+"use client";
+
 interface ButtonProps {
   type?: "button" | "submit" | "reset";
   children: React.ReactNode;
-  onClick?: () => void;
+  onClick?: React.MouseEventHandler<HTMLButtonElement>;
 }
 
 export const Button = ({ type = "button", children, onClick }: ButtonProps) => {
