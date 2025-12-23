@@ -7,12 +7,21 @@ import { Square } from "./square";
 type SquareValue = "X" | "O" | null;
 
 export default function Home() {
-  const [squares, setSquares] = useState<SquareValue[]>(Array(9).fill(null)); // creates an array with nine elements and sets each of them to null
+  const [xIsNext, setXIsNext] = useState(true);
+  const [squares, setSquares] = useState<SquareValue[]>(new Array(9).fill(null)); // creates an array with nine elements and sets each of them to null
 
   function handleClick(i: number) {
+    if (squares[i]) {
+      return; // if square is already filled return early
+    }
     const nextSquares = squares.slice();
-    nextSquares[i] = "X";
+    if (xIsNext) {
+      nextSquares[i] = "X";      
+    } else {
+      nextSquares[i] = "O";
+    }
     setSquares(nextSquares);
+    setXIsNext(!xIsNext);
   }
 
   return (
