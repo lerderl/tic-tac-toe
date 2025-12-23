@@ -3,20 +3,25 @@
 import { useState } from "react";
 
 import { Square } from "./square";
+import { CalculateWinner } from "./calculateWinner";
 
 type SquareValue = "X" | "O" | null;
 
 export default function Home() {
   const [xIsNext, setXIsNext] = useState(true);
-  const [squares, setSquares] = useState<SquareValue[]>(new Array(9).fill(null)); // creates an array with nine elements and sets each of them to null
+  const [squares, setSquares] = useState<SquareValue[]>(
+    new Array(9).fill(null)
+  ); // creates an array with nine elements and sets each of them to null
+  const winner = CalculateWinner(squares);
+  let status;
 
   function handleClick(i: number) {
-    if (squares[i]) {
-      return; // if square is already filled return early
+    if (squares[i] || winner) {
+      return; // if square is already filled or there is a winner return early
     }
     const nextSquares = squares.slice();
     if (xIsNext) {
-      nextSquares[i] = "X";      
+      nextSquares[i] = "X";
     } else {
       nextSquares[i] = "O";
     }
@@ -24,8 +29,15 @@ export default function Home() {
     setXIsNext(!xIsNext);
   }
 
+  if (winner) {
+    status = "Winner: " + winner;
+  } else {
+    status = "Next player: " + (xIsNext ? "X" : "O");
+  }
+
   return (
     <>
+      <div className="status">{status}</div>
       <div className="board-row">
         <Square value={squares[0]} onSquareClick={() => handleClick(0)} />
         <Square value={squares[1]} onSquareClick={() => handleClick(1)} />
